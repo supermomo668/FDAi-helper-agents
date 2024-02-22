@@ -7,21 +7,17 @@ from dependencies import _REQUIRED_ENV_VARS
 
 router = APIRouter()
 
-def validate_env_var():
-    for env_var in _REQUIRED_ENV_VARS:
-        assert os.environ[env_var], f"Environment variable {env_var} not found"
-
 @router.on_event("startup")
 async def load_index():
     global query_engine
     documents = GithubRepositoryReader(
-        github_token=github_token,
-        owner=owner,
-        repo=repo,
+        github_token=os.getenv("GITHUB_TOKEN"),
+        owner=os.getenv("GITHUB_REPO_OWNER"),
+        repo=os.getenv("GITHUB_REPO_NAME"),
         use_parser=False,
         verbose=False,
         ignore_directories=["examples"],
-    ).load_data(branch=branch)
+    ).load_data(branch=os.getenv("GITHUB_REPO_BRANCH", "main"))
     index = VectorStoreIndex.from_documents(documents)
     query_engine = index.as_query_engine()
 
