@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+openai
+langchain
+llama-index
+nest_asyncio
+httpx
+llama-index-readers-github
+python-dotenv
