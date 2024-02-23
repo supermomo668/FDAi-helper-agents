@@ -10,15 +10,6 @@ This repository contains the FastAPI-based application designed to serve as a ge
 
 ## Getting Started
 This application serves as a backend service, providing an interface to interact with GPT models for generating responses based on user queries, making it an invaluable tool for developers and researchers working in AI.
-
-## Features
-
-- **GPT Query Processing**: Process queries through GPT models to generate intelligent responses.
-- **GitHub Repository Integration**: Automatically fetch and index content from specified GitHub repositories for enhanced query understanding.
-- **VectorStoreIndex Utilization**: Leverage VectorStoreIndex for efficient query handling and response generation.
-
-## Getting Started
-
 ### Prerequisites
 
 - Python 3.9 or later
