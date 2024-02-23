@@ -1,8 +1,8 @@
-# FDAi-helper-agents
+
+# FDAi GPT Agent
 ## Description
 system context to deep context specific agents for FDAi project 
 
-# FDAi General GPT Agent
 
 ## Introduction
 
