@@ -1,4 +1,7 @@
 # FDAi-helper-agents
+![Cloud Run Deploy](https://github.com/supermomo668/FDAi-helper-agents/workflows/Cloud%20Run%20Deploy/badge.svg)
+
+
 ## Description
 system context to deep context specific agents for FDAi project 
 
