@@ -1,13 +1,14 @@
 from fastapi import APIRouter, HTTPException
 from llama_index.core import VectorStoreIndex, SummaryIndex
 
+from llama_index.readers.github import GithubRepositoryReader
 from llama_index.readers.web import SimpleWebPageReader
 
 from functools import lru_cache
 import requests
 import os
 
-from ..dependencies import GITHUB_API_URL
+from dependencies import GITHUB_API_URL
 
 class github_agent:
   def __init__(self):
@@ -24,7 +25,6 @@ class github_agent:
     return query_engine
       
   def _init_github_document(self):
-    from llama_index.readers.github import GithubRepositoryReader
     documents = GithubRepositoryReader(
         github_token=os.getenv("GITHUB_TOKEN"),
         owner=os.getenv("GITHUB_REPO_OWNER"),

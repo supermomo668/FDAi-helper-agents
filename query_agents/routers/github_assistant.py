@@ -14,7 +14,7 @@ async def load_index():
 async def query_llama_index(query: str):
     if 'query_agent' not in globals():
         raise HTTPException(status_code=503, service_unavailable="Index not loaded")
-    return query_agent.make_github_query(query)
+    return query_agent.query(query)
 
 if __name__=="__main__":
     from dotenv import load_dotenv
@@ -22,4 +22,4 @@ if __name__=="__main__":
     query_agent = web_agent()
     PROMPT= "What is the GitHub Repository FDAi about?"
     ANS=query_agent.query(PROMPT)
-    print(f"Question:{PROMPT}","ANSWER:{ANS}",sep='\n')
+    print(f"Question:{PROMPT}",f"ANSWER:{ANS}",sep='\n')
