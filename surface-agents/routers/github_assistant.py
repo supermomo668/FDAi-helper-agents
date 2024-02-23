@@ -1,29 +1,25 @@
 from fastapi import APIRouter, HTTPException
-from llama_index.core import VectorStoreIndex
-from llama_index.readers.github import GithubRepositoryReader
+from .github_index import github_agent, web_agent
 import os
-
-from dependencies import _REQUIRED_ENV_VARS
 
 router = APIRouter()
 
 @router.on_event("startup")
 async def load_index():
-    global query_engine
-    documents = GithubRepositoryReader(
-        github_token=os.getenv("GITHUB_TOKEN"),
-        owner=os.getenv("GITHUB_REPO_OWNER"),
-        repo=os.getenv("GITHUB_REPO_NAME"),
-        use_parser=False,
-        verbose=False,
-        ignore_directories=["examples"],
-    ).load_data(branch=os.getenv("GITHUB_REPO_BRANCH", "main"))
-    index = VectorStoreIndex.from_documents(documents)
-    query_engine = index.as_query_engine()
-
+    global query_agent
+    query_agent = web_agent()
+    # query_agent = github_agent()
+    
 @router.get("/query/")
 async def query_llama_index(query: str):
-    if 'query_engine' not in globals():
+    if 'query_agent' not in globals():
         raise HTTPException(status_code=503, service_unavailable="Index not loaded")
-    response = query_engine.query(query, verbose=True)
-    return response
+    return query_agent.make_github_query(query)
+
+if __name__=="__main__":
+    from dotenv import load_dotenv
+    load_dotenv('.env')
+    query_agent = web_agent()
+    PROMPT= "What is the GitHub Repository FDAi about?"
+    ANS=query_agent.query(PROMPT)
+    print(f"Question:{PROMPT}","ANSWER:{ANS}",sep='\n')

@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 app = FastAPI()
 # Apply nest_asyncio to enable nested event loops
-nest_asyncio.apply()
+# nest_asyncio.apply()
 
 app = FastAPI()
 

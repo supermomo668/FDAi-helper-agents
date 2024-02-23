@@ -7,3 +7,5 @@ _REQUIRED_ENV_VARS = [
   "GITHUB_REPO",
   "GITHUB_BRANCH"
 ]
+
+GITHUB_API_URL = "https://api.github.com/repos/{owner}/{repo}/contents/"
