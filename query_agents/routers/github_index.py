@@ -8,8 +8,6 @@ from functools import lru_cache
 import requests
 import os
 
-from dependencies import GITHUB_API_URL
-
 class github_agent:
   def __init__(self):
     self.document_store = self._init_github_document()
@@ -35,14 +33,9 @@ class github_agent:
     return documents
   
 class web_agent:
-  def __init__(self):
+  def __init__(self, url):
     self.initialized = False
-    github_urls = self.fetch_github_repo_contents_urls(
-      GITHUB_API_URL.format(**{
-      "owner": os.environ["GITHUB_REPO_OWNER"],
-      "repo": os.environ["GITHUB_REPO_NAME"],
-      })
-    )
+    github_urls = self.fetch_github_repo_contents_urls(url)
     print(f"Extracted {len(github_urls)} in total from repo")
     self.document_store = self._init_document_store(github_urls)
     self.query_engine = self._init_query_engine(self.document_store)

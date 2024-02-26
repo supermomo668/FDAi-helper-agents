@@ -3,7 +3,7 @@ from routers import github_assistant
 
 from dotenv import load_dotenv
 
-app = FastAPI()
+app = FastAPI(lifespan=github_assistant.load_agent)
 # Apply nest_asyncio to enable nested event loops
 # nest_asyncio.apply()
 
