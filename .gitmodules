@@ -1,3 +1,7 @@
 [submodule "khoj"]
 	path = khoj
 	url = https://github.com/khoj-ai/khoj.git
+
+[submodule "FDAi"]
+	path = FDAi
+	url = git@github.com:wishonia/FDAi.git
