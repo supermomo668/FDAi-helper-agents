@@ -5,3 +5,6 @@
 [submodule "FDAi"]
 	path = FDAi
 	url = git@github.com:wishonia/FDAi.git
+[submodule "deep-chat"]
+	path = deep-chat
+	url = git@github.com:OvidijusParsiunas/deep-chat.git

@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  query-agents:
+    stdin_open: true
+    tty: true
+    image: fdai-agents
+    # Other configurations like ports, volumes, etc.
+    build: 
+      context: ./query_agents
+    command: uvicorn main:app --host 0.0.0.0 --reload
+    env_file:
+      - ./query_agents/.env
+    volumes:
+      - .:/fdai-agents-app
+    ports:
+      - "8000:8000"

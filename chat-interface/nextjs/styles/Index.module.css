@@ -1,0 +1,83 @@
+.main {
+  font-family: sans-serif;
+  text-align: center;
+  padding-bottom: 40px;
+  background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.pageTitle {
+  font-size: 48px;
+  color: #fff;
+  background: -webkit-linear-gradient(left, #00f, #f0f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+  padding: 20px;
+}
+
+.components {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.components > * {
+  margin: 0 20px;
+}
+
+.diagonalLine {
+  position: absolute;
+  transform: skewY(-2.5deg);
+  height: 200px;
+  width: 100%;
+  background: #e8f5ff;
+  padding-top: 30px;
+  margin-top: 50px;
+}
+
+.serverTitle {
+  display: contents;
+}
+
+.serverTitleIcon {
+  margin-left: 10px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.title {
+  font-size: 48px;
+  background: linear-gradient(to right, #0072ff, #00c6ff);
+  -webkit-background-clip: text;
+  color: transparent;
+  margin-bottom: 40px;
+}
+
+.chatBubble {
+  width: 300px;
+  height: 100px;
+  border-radius: 50%;
+  background: #f1f1f1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.chatBubble:hover {
+  width: 400px;
+  height: 500px;
+  border-radius: 20px;
+}

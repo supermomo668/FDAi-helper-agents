@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from contextlib import asynccontextmanager
 
-from .github_index import github_agent, web_agent
+from query_agents.github_index import github_agent, web_agent
 import os
 
 from ..dependencies import GITHUB_API_URL

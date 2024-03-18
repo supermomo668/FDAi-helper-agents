@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  nextjs-app:
+    build: .
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - .env.local # Ensure this file is created from .env.example and contains your actual environment variables

@@ -1,0 +1,22 @@
+{
+  "name": "chat-interface",
+  "version": "1.0.0",
+  "description": "chatbot interface with khoj for backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/supermomo668/FDAi-helper-agents.git"
+  },
+  "author": "FDAi-act Matt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/supermomo668/FDAi-helper-agents/issues"
+  },
+  "homepage": "https://github.com/supermomo668/FDAi-helper-agents#readme",
+  "dependencies": {
+    "deep-chat": "^1.4.11"
+  }
+}

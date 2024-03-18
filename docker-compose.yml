@@ -1,16 +1,57 @@
-version: '3.8'
+version: "3.9"
 services:
-  query-agents:
-    stdin_open: true
-    tty: true
-    image: fdai-agents
-    # Other configurations like ports, volumes, etc.
-    build: 
-      context: ./query_agents
-    command: uvicorn main:app --host 0.0.0.0 --reload
-    env_file:
-      - ./query_agents/.env
-    volumes:
-      - .:/fdai-agents-app
+  server:
+    # Use the following line to use the latest version of khoj. Otherwise, it will build from source.
+    image: ghcr.io/khoj-ai/khoj:latest
+    build:
+      context: ./khoj
+      dockerfile: prod.Dockerfile
     ports:
-      - "8000:8000"
+      - "42110:42110"
+    working_dir: /app
+    volumes:
+      - khoj_config:/root/.khoj/
+      - khoj_models:/root/.cache/torch/sentence_transformers
+    env_file: khoj/.env
+    environment:
+      port: 42110
+    depends_on:
+      - pgbouncer
+    networks:
+      - khoj
+    
+  pgbouncer:
+    image: edoburu/pgbouncer:latest
+    ports:
+      - "6432:6432" # PgBouncer listening port
+    env_file: khoj/.pgbouncer.env
+    environment:
+      # PgBouncer settings, adjust according to your needs
+      POOL_MODE: transaction
+      AUTH_TYPE: scram-sha-256
+      LISTEN_PORT: 6432
+    networks:
+      - khoj
+  
+  chat-interface:
+    build:
+      context: ./chat-interface/nextjs
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./chat-interface/nextjs:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - ./chat-interface/nextjs/.env.local
+    networks:
+      - khoj 
+      
+networks:
+  khoj:
+
+volumes:
+  khoj_config:
+  khoj_models:
