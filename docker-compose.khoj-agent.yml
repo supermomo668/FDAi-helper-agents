@@ -35,17 +35,17 @@ services:
   
   chat-interface:
     build:
-      context: ./chat-interface/nextjs
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
+        context: ./chat-interface/nextjs
+        dockerfile: Dockerfile
     volumes:
       - ./chat-interface/nextjs:/app
       - /app/node_modules
+    ports:
+      - "3000:3000"
     environment:
       - NODE_ENV=production
     env_file:
-      - ./chat-interface/nextjs/.env.local
+      - ./chat-interface/nextjs/.env.local # Adjusted to the new path
     networks:
       - khoj 
       

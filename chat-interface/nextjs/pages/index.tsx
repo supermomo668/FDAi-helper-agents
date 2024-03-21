@@ -64,16 +64,16 @@ const chatStyles = {
 // Info to add types to a component reference:
 // https://github.com/OvidijusParsiunas/deep-chat/issues/59#issuecomment-1839487740
 
-console.log(process.env.DEBUG)
-
 export default function IndexPage() {
   // Need to import the component dynamically as it uses the 'window' property.
   // If you have found a better way of adding the component in next, please create a new issue ticket so we can update the example!
   const DeepChat = dynamic(() => import('deep-chat-react').then((mod) => mod.DeepChat), {
     ssr: false,
   });
-  const debugMode = process.env.DEBUG === 'true';
-  const chatUrl = debugMode ? (process.env.DEBUG_BASE_URL || "http://localhost:42110"): (process.env.KHOJ_BASE_URL || "http://localhost:42110");
+  const debugMode = process.env.NEXT_PUBLIC_DEBUG === 'true';
+  console.log(`Debug Mode:${debugMode}`)
+  const chatUrl = debugMode ? (process.env.NEXT_PUBLIC_DEBUG_BASE_URL || "http://localhost:3000"): (process.env.NEXT_PUBLIC_KHOJ_BASE_URL || "http://localhost:42110");
+
   return (
     <>
       <Head>
@@ -84,7 +84,7 @@ export default function IndexPage() {
         <h1 id={styles.pageTitle}>
         </h1>
         <h1 className={styles.serverTitle}>Chat with FDAi</h1>
-        <a href="https://https://fdai.earth/" target="_blank" rel="noreferrer">
+        <a href="https://fdai.earth/" target="_blank" rel="noreferrer" >
           <img 
             className={styles.serverTitleIcon} 
             src="https://i0.wp.com/fdai.earth/wp-content/uploads/2024/02/fdai-square-icon.png?fit=2000%2C2000&amp;ssl=1"
@@ -102,17 +102,22 @@ export default function IndexPage() {
           <DeepChat
             style={{...chatStyles.container, width: '800px'}}
             introMessage={{text: 'Hi, I\'m a FDAi agent, please tell me your curious concerns about our project, health & longevity or anything!'}}
+            stream={{ simulation: 60 }}
             request={{
-              url: `${chatUrl}/chat/deepchat`,
+              url: `${chatUrl}/api/chat/deepchat`,
               method: "POST",
               additionalBodyProps: {
-                // "stream": "true",
-                "n": 5,
+                // "stream": "false",
+                "n": 3,
                 "client": "web",
                 "conversation_id": 3,
                 "region": "California",
                 "city": "San Francisco",
                 "country": "United States"
+              },
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${process.env.NEXT_PUBLIC_KHOJ_API_TOKEN}`,
               }
             }}
             requestInterceptor={(details: RequestDetails) => {
@@ -152,8 +157,8 @@ export default function IndexPage() {
             https://deepchat.dev/docs/connect/#requestBodyLimits */}
           <DeepChat
             style={{borderRadius: '10px'}}
-            introMessage={{text: 'Send a chat message to chat with OpenAI\'s GPT!'}}
-            request={{url: 'http://127.0.0.1:8000/', additionalBodyProps: {model: 'gpt-3.5-turbo'}}}
+            introMessage={{text: 'Send a chat message to ask about OpenAI!'}}
+            request={{url: '/api/openai/chat', additionalBodyProps: {model: 'gpt-3.5-turbo'}}}
             requestBodyLimits={{maxMessages: -1}}
             errorMessages={{displayServiceErrorMessages: true}}
           />
